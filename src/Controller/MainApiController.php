@@ -9,18 +9,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api')]
 class MainApiController extends AbstractController
 {
-    #[Route('/api/healthcheck', 'ApiHealthCheck')]
+    #[Route('/healthcheck', 'ApiHealthCheck', methods: ['GET'])]
     public function index(): Response
     {
         return new Response('OK');
     }
 
-    #[Route('/api/data', 'ApiData')]
+    #[Route('/data', 'ApiData', methods: ['GET'])]
     public function getApiData(UserRepository $userRepository): Response
     {
         $data = $userRepository->findAll();
+
+        return $this->json($data);
+    }
+
+    #[Route('/data/{id<\d+>}', 'ApiDataById', methods: ['GET'])]
+    public function getApiDataById(UserRepository $userRepository, int $id): Response
+    {
+        $data = $userRepository->findById($id);
+
+        if (!$data) {
+            throw $this->createNotFoundException('Data not found');
+        }
+
         return $this->json($data);
     }
 }

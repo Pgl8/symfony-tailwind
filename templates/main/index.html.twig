@@ -5,5 +5,26 @@
 {% block body %}
     <h1>Hello world</h1>
 
+    <p>Welcome to your new Tailwind CSS project! You can now start building your own pages.</p>
 
+    <p>Data:</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>
+                    <a href="{{ path('user_index', {id: user.id}) }}">Edit</a>
+                    <a href="{{ path('user_index', {id: user.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

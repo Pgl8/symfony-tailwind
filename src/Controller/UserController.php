@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user/{id<\d+>}', 'UserIndex')]
+    #[Route('/user/{id<\d+>}', 'user_index')]
     public function index(int $id, UserRepository $userRepository): Response
     {
         $user = $userRepository->findById($id);

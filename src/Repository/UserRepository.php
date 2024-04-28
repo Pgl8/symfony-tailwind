@@ -29,6 +29,6 @@ class UserRepository
     {
         $this->logger->info('Fetching data from API');
 
-        return $this->data[$id];
+        return $this->data[$id - 1];
     }
 }
